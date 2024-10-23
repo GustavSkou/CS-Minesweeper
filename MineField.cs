@@ -1,28 +1,37 @@
 class MineField
 {
-    public required int Heigth {get; set;}
-    public required int Width {get; set;}
-    public required int Mines {get; set;}
+    private int heigth;
+    private int width;
+    private int totalMines = 0;
     private Cell[,] mineField;
 
-    public void CreateEmptyField()
+    public MineField(int height, int width)
     {
-        this.mineField = new Cell[this.Heigth, this.Width];
-
-        for (int row = 0; row < this.Heigth; row++)
-        {
-            for (int column = 0; column < this.Width; column++)
-            {
-                this.mineField[row,column] = new Cell();
-            }
-        }
+        this.heigth = height;
+        this.width = width;
+        mineField = CreateFieldOfCells();
     }
 
-    public void LayMines()
+    public Cell[,] CreateFieldOfCells()
     {
+        Cell[,] someField = new Cell[this.heigth, this.width];
+
+        for (int row = 0; row < this.heigth; row++)
+        {
+            for (int column = 0; column < this.width; column++)
+            {
+                someField[row,column] = new Cell();
+            }
+        }
+        return someField;
+    }
+
+    public void LayMines(int mines)
+    {
+        this.totalMines = this.totalMines + mines;
         Random random = new();
 
-        for ( int mine = 0; mine < Mines; mine++ )
+        for ( int mine = 0; mine < mines; mine++ )
         {
             int[] minePlace = GetRandomPlace();
 
@@ -33,8 +42,8 @@ class MineField
         {
             int[] place = 
             [
-                random.Next(this.Heigth),   // row
-                random.Next(this.Width)     // column
+                random.Next(this.heigth),   // row
+                random.Next(this.width)     // column
             ];
             
             if ( this.mineField[place[0],place[1]].GetType() == typeof(Cell) )
@@ -48,9 +57,26 @@ class MineField
 
     public void PrintMineField()
     {
-        void PrintColumnNumbers()
+        PrintColumnNumbers();
+        
+        for(int row = 0; row < this.heigth; row++)
         {
-            for (int columnNum = 0; columnNum < this.Heigth; columnNum++)
+            PrintRowNumbers(row);
+            
+            for (int column = 0; column < this.width; column++)
+            {
+                Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
+            }
+            
+            PrintRowNumbers(row);
+            Console.WriteLine();
+        }
+
+        PrintColumnNumbers();
+    }
+    private void PrintColumnNumbers()
+        {
+            for (int columnNum = 0; columnNum < this.heigth; columnNum++)
             {
                 if (columnNum == 0) 
                 { 
@@ -60,21 +86,10 @@ class MineField
             }
             Console.WriteLine();
         }
-        PrintColumnNumbers();
-        
-        for(int row = 0; row < this.Heigth; row++)
-        {
-            Console.Write($"{row} ");
-            for (int column = 0; column < this.Width; column++)
-            {
-                Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
-            }
-            Console.WriteLine($"{row}");
-        }
-
-        PrintColumnNumbers();
+    private void PrintRowNumbers(int row)
+    {
+        Console.Write($"{row} ");
     }
-
     public Cell[,] getMineField()
     {
         return this.mineField;
