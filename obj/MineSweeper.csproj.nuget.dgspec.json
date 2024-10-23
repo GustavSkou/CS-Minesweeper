@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gusta\\Desktop\\MineSweeper\\MineSweeper.csproj": {}
+    "C:\\Users\\gusta\\Desktop\\CS-Minesweeper\\MineSweeper.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gusta\\Desktop\\MineSweeper\\MineSweeper.csproj": {
+    "C:\\Users\\gusta\\Desktop\\CS-Minesweeper\\MineSweeper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gusta\\Desktop\\MineSweeper\\MineSweeper.csproj",
+        "projectUniqueName": "C:\\Users\\gusta\\Desktop\\CS-Minesweeper\\MineSweeper.csproj",
         "projectName": "MineSweeper",
-        "projectPath": "C:\\Users\\gusta\\Desktop\\MineSweeper\\MineSweeper.csproj",
+        "projectPath": "C:\\Users\\gusta\\Desktop\\CS-Minesweeper\\MineSweeper.csproj",
         "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gusta\\Desktop\\MineSweeper\\obj\\",
+        "outputPath": "C:\\Users\\gusta\\Desktop\\CS-Minesweeper\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

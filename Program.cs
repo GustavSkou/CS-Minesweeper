@@ -2,9 +2,16 @@
 {
     static void Main()
     {
-        MineField mineField = new MineField(9, 9, 9);
-        mineField.CreateEmptyField();
-        mineField.LayMines();
+        MineField mineSweeper = new MineField()
+        {
+            Heigth = 9, 
+            Width = 9, 
+            Mines = 9
+        };
         
+        mineSweeper.CreateEmptyField();
+        mineSweeper.LayMines();
+        
+        mineSweeper.PrintMineField();
     }
 }
