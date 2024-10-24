@@ -1,19 +1,7 @@
 class Cell
 {
-
-}
-
-class Mine : Cell
-{
-    
-}
-
-class Flag : Cell
-{
-
-}
-
-class Open : Cell
-{
-
+    public virtual char GetChar()
+    {
+        return '#';
+    }
 }
