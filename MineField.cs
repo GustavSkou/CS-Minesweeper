@@ -1,18 +1,17 @@
 class MineField
 {
-    private int heigth;
-    private int width;
-    private int totalMines = 0;
+    private int heigth, width, totalMines = 0;
+
     private Cell[,] mineField;
 
     public MineField(int height, int width)
     {
         this.heigth = height;
         this.width = width;
-        mineField = CreateFieldOfCells();
+        mineField = SetFieldToCells();
     }
 
-    public Cell[,] CreateFieldOfCells()
+    public Cell[,] SetFieldToCells()
     {
         Cell[,] someField = new Cell[this.heigth, this.width];
 
