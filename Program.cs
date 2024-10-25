@@ -2,10 +2,13 @@
 {
     static void Main()
     {
-        MineField mineSweeper = new MineField(9,9);
-        
-        mineSweeper.LayMines(20);
+        MineField mineField = new MineField(9,9);
+        Player player = new Player(mineField);
 
-        mineSweeper.PrintMineField();
+        mineField.LayMines(20);
+        mineField.PrintMineField();
+
+        player.GetInput();
+        
     }
 }
