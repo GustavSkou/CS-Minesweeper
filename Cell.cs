@@ -1,16 +1,27 @@
 
 class Cell
 {
-    private Cell opendState;
-    private int surraundingMines;
+    protected char cellModel = '#';
+    protected bool isOpen = false;
+    protected bool isFlag = false;
+
     public virtual char GetChar()
     {
-        return '#';
+        return cellModel;
     }
-    public void SetOpendState(Cell state)
+
+    public virtual void Open()
+    {
+        if (isOpen)
+        {
+            return;
+        }
+        
+        isOpen = true;
+    }
+
+    public virtual void Flag()
     {
 
     }
-    
-    
 }

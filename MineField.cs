@@ -39,11 +39,12 @@ class MineField
         this.totalMines = this.totalMines + mines;
         Random random = new();
 
-        for ( int mine = 0; mine < mines; mine++ )
+        for ( int minesPlaced = 0; minesPlaced < mines; minesPlaced++ )
         {
             int[] minePlace = GetRandomPlace();
 
-            this.mineField[ minePlace[0], minePlace[1] ] = new Mine();
+            Cell mine = new Mine();
+            this.mineField[ minePlace[0], minePlace[1] ] = mine;
         }
 
         int[] GetRandomPlace()
