@@ -1,27 +1,37 @@
-
 class Cell
 {
-    protected char cellModel = '#';
+    protected int row, column;
+    private string cellModel = "#";
     protected bool isOpen = false;
     protected bool isFlag = false;
 
-    public virtual char GetChar()
+    public Cell(int row, int column)
+    {
+        this.row = row;
+        this.column = column;
+    }
+
+    public virtual string GetChar()
     {
         return cellModel;
     }
 
-    public virtual void Open()
+    public virtual void Open(Cell[,] mineField)
     {
-        if (isOpen)
+        if (this is Open)
         {
             return;
         }
-        
-        isOpen = true;
-    }
 
-    public virtual void Flag()
-    {
-
+        for (int i = 0; i < mineField.GetLength(0); i++)
+        {
+            for (int j = 0; j < mineField.GetLength(1); j++)
+            {
+                if (mineField[i, j].Equals(this))
+                {
+                    mineField[i, j] = new Open(this.row, this.column, mineField);
+                }
+            }
+        }
     }
 }

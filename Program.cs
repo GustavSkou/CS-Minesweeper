@@ -5,10 +5,13 @@
         MineField mineField = new MineField(9,9);
         Player player = new Player(mineField);
 
-        mineField.LayMines(20);
+        mineField.LayMines(5);
         mineField.PrintMineField();
-
-        player.GetInput();
-        
+        //mineField.OpenMineField();
+        //mineField.PrintMineField();
+        while (true)
+        {
+            player.GetInput();
+        }
     }
 }

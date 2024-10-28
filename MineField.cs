@@ -28,7 +28,7 @@ class MineField
         {
             for (int column = 0; column < this.width; column++)
             {
-                someField[row,column] = new Cell();
+                someField[row,column] = new Cell(row, column);
             }
         }
         return someField;
@@ -43,7 +43,7 @@ class MineField
         {
             int[] minePlace = GetRandomPlace();
 
-            Cell mine = new Mine();
+            Cell mine = new Mine(minePlace[0], minePlace[1]);
             this.mineField[ minePlace[0], minePlace[1] ] = mine;
         }
 
@@ -67,31 +67,31 @@ class MineField
     public void PrintMineField()
     {
         Console.Clear();
-        PrintColumnNumbers();
+        //PrintColumnNumbers();
         
         for(int row = 0; row < this.heigth; row++)
         {
-            PrintRowNumbers(row);
+            //PrintRowNumbers(row);
             
             for (int column = 0; column < this.width; column++)
             {
                 Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
             }
             
-            PrintRowNumbers(row);
+            //PrintRowNumbers(row);
             Console.WriteLine();
         }
 
-        PrintColumnNumbers();
+        //PrintColumnNumbers();
     }
     public void PrintMineField(int[] coordinates)
     {
         Console.Clear();
-        PrintColumnNumbers();
+        //PrintColumnNumbers();
         
         for(int row = 0; row < this.heigth; row++)
         {
-            PrintRowNumbers(row);
+            //PrintRowNumbers(row);
             
             for (int column = 0; column < this.width; column++)
             {
@@ -102,11 +102,11 @@ class MineField
                 Console.BackgroundColor = ConsoleColor.Black;
             }
             
-            PrintRowNumbers(row);
+            //PrintRowNumbers(row);
             Console.WriteLine();
         }
 
-        PrintColumnNumbers();
+        //PrintColumnNumbers();
     }
     private void PrintColumnNumbers()
         {
@@ -127,5 +127,13 @@ class MineField
     public Cell[,] getMineField()
     {
         return this.mineField;
+    }
+
+    public void OpenMineField()
+    {
+        foreach (Cell cell in mineField)
+        {
+            cell.Open(mineField);
+        }
     }
 }
