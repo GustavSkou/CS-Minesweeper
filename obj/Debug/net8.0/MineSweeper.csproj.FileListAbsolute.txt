@@ -27,3 +27,4 @@ c:\Users\gusta\Desktop\CS-Minesweeper\obj\Debug\net8.0\refint\MineSweeper.dll
 c:\Users\gusta\Desktop\CS-Minesweeper\obj\Debug\net8.0\MineSweeper.pdb
 C:\Users\gusta\Desktop\CS-Minesweeper\obj\Debug\net8.0\MineSweeper.genruntimeconfig.cache
 C:\Users\gusta\Desktop\CS-Minesweeper\obj\Debug\net8.0\ref\MineSweeper.dll
+C:\Users\gusta\Desktop\MineSweeper\obj\Debug\net8.0\MineSweeper.sourcelink.json

@@ -1,51 +1,46 @@
-class Player {
-    public int[] Input()
+class Player
+{
+    private MineField mineField;
+    private int[] coordinatesChoosen = new int[2];
+    public Player(MineField mineField) 
     {
-        Dictionary<char,int> keyCharNumberPairs = new Dictionary<char, int>
+        this.mineField = mineField;
+    }
+    
+    public int[] GetInput()
+    {        
+        ConsoleKeyInfo keyInfo;
+        
+        do
         {
-            {'0', 0},
-            {'1', 1},
-            {'2', 2},
-            {'3', 3},
-            {'4', 4},
-            {'5', 5},
-            {'6', 6},
-            {'7', 7},
-            {'8', 8},
-            {'9', 9},
-
-        };
-        var keyInput = Console.ReadKey();
-
-        int number = keyCharNumberPairs[keyInput.KeyChar];
-
-        /*switch (keyInput.KeyChar)
-        {
-            case '0':
-            break;
-            case '1':
-            break;
-            case '2':
-            break;
-            case '3':
-            break;
-            case '4':
-            break;
-            case '5':
-            break;
-            case '6':
-            break;
-            case '7':
-            break;
-            case '8':
-            break;
-            case '9':
-            break;
+            keyInfo = Console.ReadKey();
             
-            default:
-        }*/
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    coordinatesChoosen[0] = coordinatesChoosen[0] > 0 ? coordinatesChoosen[0] = coordinatesChoosen[0] - 1 : coordinatesChoosen[0] = mineField.GetHeight() - 1;
+                    break;
 
-        int[] input;
-        return input
+                case ConsoleKey.DownArrow:
+                    coordinatesChoosen[0] = coordinatesChoosen[0] < mineField.GetHeight() - 1 ? coordinatesChoosen[0] = coordinatesChoosen[0] + 1 : coordinatesChoosen[0] = 0;
+                    break;
+
+                case ConsoleKey.LeftArrow:
+                    coordinatesChoosen[1] = coordinatesChoosen[1] > 0 ? coordinatesChoosen[1] = coordinatesChoosen[1] - 1 : coordinatesChoosen[1] = mineField.GetWidth() - 1;
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    coordinatesChoosen[1] = coordinatesChoosen[1] < mineField.GetWidth() - 1 ? coordinatesChoosen[1] = coordinatesChoosen[1] + 1 : coordinatesChoosen[1] = 0;
+                    break;
+
+                default:
+                    Console.WriteLine("ArrowKeys to move \nEnter to continue");
+                    break;
+            }
+            mineField.PrintMineField(coordinatesChoosen);
+        }
+        while(keyInfo.Key != ConsoleKey.Enter);
+        
+        return coordinatesChoosen;
     }
 }

@@ -1,14 +1,23 @@
 class MineField
 {
-    private int heigth, width, totalMines = 0;
+    private int  heigth, width, totalMines = 0;
 
     private Cell[,] mineField;
 
-    public MineField(int height, int width)
+    public MineField(int heigth, int width)
     {
-        this.heigth = height;
+        this.heigth = heigth;
         this.width = width;
         mineField = SetFieldToCells();
+    }
+
+    public int GetHeight()
+    {
+        return this.heigth;
+    }
+    public int GetWidth()
+    {
+        return this.width;
     }
 
     public Cell[,] SetFieldToCells()
@@ -30,11 +39,12 @@ class MineField
         this.totalMines = this.totalMines + mines;
         Random random = new();
 
-        for ( int mine = 0; mine < mines; mine++ )
+        for ( int minesPlaced = 0; minesPlaced < mines; minesPlaced++ )
         {
             int[] minePlace = GetRandomPlace();
 
-            this.mineField[ minePlace[0], minePlace[1] ] = new Mine();
+            Cell mine = new Mine();
+            this.mineField[ minePlace[0], minePlace[1] ] = mine;
         }
 
         int[] GetRandomPlace()
@@ -56,6 +66,7 @@ class MineField
 
     public void PrintMineField()
     {
+        Console.Clear();
         PrintColumnNumbers();
         
         for(int row = 0; row < this.heigth; row++)
@@ -65,6 +76,30 @@ class MineField
             for (int column = 0; column < this.width; column++)
             {
                 Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
+            }
+            
+            PrintRowNumbers(row);
+            Console.WriteLine();
+        }
+
+        PrintColumnNumbers();
+    }
+    public void PrintMineField(int[] coordinates)
+    {
+        Console.Clear();
+        PrintColumnNumbers();
+        
+        for(int row = 0; row < this.heigth; row++)
+        {
+            PrintRowNumbers(row);
+            
+            for (int column = 0; column < this.width; column++)
+            {
+              
+                Console.BackgroundColor = row == coordinates[0] || column == coordinates[1] ? ConsoleColor.DarkGray : ConsoleColor.Black;
+                
+                Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             
             PrintRowNumbers(row);
