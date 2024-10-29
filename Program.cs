@@ -7,11 +7,13 @@
 
         mineField.LayMines(5);
         mineField.PrintMineField();
-        //mineField.OpenMineField();
-        //mineField.PrintMineField();
-        while (true)
+
+        mineField.getMineField()[1,1].Open(mineField.getMineField());
+        mineField.PrintMineField();
+
+        /*while (true)
         {
             player.GetInput();
-        }
+        }*/
     }
 }

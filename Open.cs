@@ -43,18 +43,16 @@ class Open : Cell
             }
         }
 
-        if (surroundingMinesCounter == 0)
+        if (surroundingMines == 0)
         {
-            OpenSurroundingCells(mineField);
+            OpenSurroundingCells([], mineField);
         }
 
         return surroundingMinesCounter;
     }
 
-    private void OpenSurroundingCells(Cell[,] mineField)
+    private void OpenSurroundingCells(List<Cell> cellsToOpen, Cell[,] mineField)
     {
-        List<Cell> cellsToOpen = new List<Cell>();
-
         for (int row = -1; row <= 1; row++)
         {
             if (this.row + row < 0 || this.row + row > mineField.GetLength(0)-1)
@@ -74,10 +72,19 @@ class Open : Cell
                     continue;
                 }
 
-                cellsToOpen.Add(mineField[row,column]);
-                cellsToOpen[0].Open(mineField);
-                cellsToOpen.RemoveAt(0);
+                if (mineField[this.row + row, this.column + column] is Open)
+                {
+                    continue;
+                }
+
+                cellsToOpen.Add(mineField[this.row + row, this.column + column]);
             }
+        }
+
+        for (int index = 0; index < cellsToOpen.Count(); index++)
+        {
+            Console.WriteLine(cellsToOpen.Count());
+            cellsToOpen[index].Open(mineField);
         }
     }
 }

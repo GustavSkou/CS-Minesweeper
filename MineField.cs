@@ -66,7 +66,7 @@ class MineField
 
     public void PrintMineField()
     {
-        Console.Clear();
+        //Console.Clear();
         //PrintColumnNumbers();
         
         for(int row = 0; row < this.heigth; row++)
@@ -86,7 +86,7 @@ class MineField
     }
     public void PrintMineField(int[] coordinates)
     {
-        Console.Clear();
+        //Console.Clear();
         //PrintColumnNumbers();
         
         for(int row = 0; row < this.heigth; row++)
