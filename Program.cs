@@ -8,12 +8,16 @@
         mineField.LayMines(5);
         mineField.PrintMineField();
 
-        mineField.getMineField()[1,1].Open(mineField.getMineField());
+        //mineField.getMineField()[1,1].Open(mineField.getMineField());
         mineField.PrintMineField();
 
-        /*while (true)
+        while (true)
         {
-            player.GetInput();
-        }*/
+            int[] coordinets = player.GetInput();
+
+            mineField.getMineField()[coordinets[0], coordinets[1]].
+                Open(mineField.getMineField());
+            mineField.PrintMineField(coordinets);
+        }
     }
 }

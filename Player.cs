@@ -7,7 +7,7 @@ class Player
         this.mineField = mineField;
     }
     
-    public void GetInput()
+    public int[] GetInput()
     {        
         ConsoleKeyInfo keyInfo;
         
@@ -40,7 +40,9 @@ class Player
             mineField.PrintMineField(coordinatesChoosen);
         }
         while(keyInfo.Key != ConsoleKey.Enter);
-        mineField.getMineField()[ coordinatesChoosen[0],coordinatesChoosen[1] ].Open(mineField.getMineField());
-        mineField.PrintMineField(coordinatesChoosen);
+
+        return coordinatesChoosen;
+        /*mineField.getMineField()[ coordinatesChoosen[0],coordinatesChoosen[1] ].Open(mineField.getMineField());
+        mineField.PrintMineField(coordinatesChoosen);*/
     }
 }
