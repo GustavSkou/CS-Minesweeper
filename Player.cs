@@ -42,7 +42,5 @@ class Player
         while(keyInfo.Key != ConsoleKey.Enter);
 
         return coordinatesChoosen;
-        /*mineField.getMineField()[ coordinatesChoosen[0],coordinatesChoosen[1] ].Open(mineField.getMineField());
-        mineField.PrintMineField(coordinatesChoosen);*/
     }
 }

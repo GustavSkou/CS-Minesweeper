@@ -35,14 +35,14 @@ class Cell
     {
         for (int row = -1; row <= 1; row++)
         {
-            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0)-1)
+            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0)-1) // Out of range
             {
                 continue;
             }
 
             for (int column = -1; column <= 1; column++)
             {
-                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1)-1)
+                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1)-1) // Out of range
                 {
                     continue;
                 }
@@ -52,8 +52,7 @@ class Cell
                     continue;
                 }
 
-                mineField[cell.row+row, cell.column+column] = new Open(cell.row+row, cell.column+column, mineField);
-                OpenSurroundingCells(mineField[cell.row+row, cell.column+column], mineField);
+                mineField[cell.row+row, cell.column+column].Open(mineField);
             }
         }
     }
