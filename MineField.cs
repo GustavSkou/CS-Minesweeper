@@ -109,48 +109,6 @@ class MineField
         PrintColumnNumbers();
     }
 
-    private void OpenSurroundingCells(List<Cell> cellsToOpen, Cell[,] mineField)
-    {
-        for (int row = -1; row <= 1; row++)
-        {
-            if (this.row + row < 0 || this.row + row > mineField.GetLength(0)-1) //Out of bounds
-            {
-                continue;
-            }
-
-            for (int column = -1; column <= 1; column++)
-            {
-                if (this.column + column < 0 || this.column + column > mineField.GetLength(1)-1) //Out of bounds
-                {
-                    continue;
-                }
-
-                if (row == 0 && column == 0) //it self
-                {
-                    continue;
-                }
-
-                if (mineField[this.row + row, this.column + column] is Open)
-                {
-                    continue;
-                }
-
-                if (mineField[this.row + row, this.column + column].isOpen)
-                {
-                    continue;
-                }
-
-                mineField[this.row + row, this.column + column].isOpen = true;
-                cellsToOpen.Add(mineField[this.row + row, this.column + column]);
-            }
-        }
-
-        for (int index = 0; index < cellsToOpen.Count(); index++)
-        {
-            cellsToOpen[index].Open(mineField);
-        }
-    }
-
 //helpers
     private void PrintColumnNumbers()
         {

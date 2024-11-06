@@ -17,6 +17,7 @@
 
             mineField.getMineField()[coordinets[0], coordinets[1]].
                 Open(mineField.getMineField());
+                
             mineField.PrintMineField(coordinets);
         }
     }

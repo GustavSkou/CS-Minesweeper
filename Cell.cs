@@ -2,8 +2,9 @@ class Cell
 {
     protected int row, column;
     private string cellModel = "#";
-    protected bool isOpen = false;
+    public bool isOpen = false;
     protected bool isFlag = false;
+    protected int surroundingMines;
 
     public Cell(int row, int column)
     {
@@ -23,14 +24,36 @@ class Cell
             return;
         }
 
-        for (int i = 0; i < mineField.GetLength(0); i++)
+        mineField[this.row, this.column] = new Open(this.row, this.column, mineField);
+        if (mineField[this.row, this.column].surroundingMines == 0)
         {
-            for (int j = 0; j < mineField.GetLength(1); j++)
+            OpenSurroundingCells(this, mineField);
+        }
+    }
+
+    public void OpenSurroundingCells(Cell cell, Cell[,] mineField)
+    {
+        for (int row = -1; row <= 1; row++)
+        {
+            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0)-1)
             {
-                if (mineField[i, j].Equals(this))
+                continue;
+            }
+
+            for (int column = -1; column <= 1; column++)
+            {
+                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1)-1)
                 {
-                    mineField[i, j] = new Open(this.row, this.column, mineField);
+                    continue;
                 }
+
+                if (mineField[cell.row + row, cell.column + column] is Open)
+                {
+                    continue;
+                }
+
+                mineField[cell.row+row, cell.column+column] = new Open(cell.row+row, cell.column+column, mineField);
+                OpenSurroundingCells(mineField[cell.row+row, cell.column+column], mineField);
             }
         }
     }

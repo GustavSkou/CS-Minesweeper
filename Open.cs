@@ -1,7 +1,5 @@
 class Open : Cell
 {
-    private int surroundingMines;
-    
     public Open (int row, int column, Cell[,] mineField) : base(row, column)
     {
         this.row = row;
@@ -45,7 +43,7 @@ class Open : Cell
         return surroundingMinesCounter;
     }
 
-    private void OpenSurroundingCells(List<Cell> cellsToOpen, Cell[,] mineField)
+    /*private void OpenSurroundingCells(List<Cell> cellsToOpen, Cell[,] mineField)
     {
         for (int row = -1; row <= 1; row++)
         {
@@ -83,8 +81,7 @@ class Open : Cell
 
         for (int index = 0; index < cellsToOpen.Count(); index++)
         {
-            Console.WriteLine(cellsToOpen.Count());
             cellsToOpen[index].Open(mineField);
         }
-    }
+    }*/
 }
