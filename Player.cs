@@ -18,19 +18,19 @@ class Player
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    coordinatesChoosen[0] = coordinatesChoosen[0] > 0 ? coordinatesChoosen[0] = coordinatesChoosen[0] - 1 : coordinatesChoosen[0] = mineField.GetHeight() - 1;
+                    coordinatesChoosen[0] = coordinatesChoosen[0] > 0 ? coordinatesChoosen[0] = coordinatesChoosen[0] - 1 : coordinatesChoosen[0] = mineField.Height - 1;
                     break;
 
                 case ConsoleKey.DownArrow:
-                    coordinatesChoosen[0] = coordinatesChoosen[0] < mineField.GetHeight() - 1 ? coordinatesChoosen[0] = coordinatesChoosen[0] + 1 : coordinatesChoosen[0] = 0;
+                    coordinatesChoosen[0] = coordinatesChoosen[0] < mineField.Height - 1 ? coordinatesChoosen[0] = coordinatesChoosen[0] + 1 : coordinatesChoosen[0] = 0;
                     break;
 
                 case ConsoleKey.LeftArrow:
-                    coordinatesChoosen[1] = coordinatesChoosen[1] > 0 ? coordinatesChoosen[1] = coordinatesChoosen[1] - 1 : coordinatesChoosen[1] = mineField.GetWidth() - 1;
+                    coordinatesChoosen[1] = coordinatesChoosen[1] > 0 ? coordinatesChoosen[1] = coordinatesChoosen[1] - 1 : coordinatesChoosen[1] = mineField.Width - 1;
                     break;
 
                 case ConsoleKey.RightArrow:
-                    coordinatesChoosen[1] = coordinatesChoosen[1] < mineField.GetWidth() - 1 ? coordinatesChoosen[1] = coordinatesChoosen[1] + 1 : coordinatesChoosen[1] = 0;
+                    coordinatesChoosen[1] = coordinatesChoosen[1] < mineField.Width - 1 ? coordinatesChoosen[1] = coordinatesChoosen[1] + 1 : coordinatesChoosen[1] = 0;
                     break;
 
                 default:
