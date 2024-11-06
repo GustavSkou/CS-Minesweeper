@@ -1,20 +1,17 @@
 class Cell
 {
-    protected int row, column;
-    private string cellModel = "#";
-    public bool isOpen = false;
-    protected bool isFlag = false;
-    protected int surroundingMines;
+    protected int row, column, surroundingMines;
+    protected string model = "#";
+
+    public string Model
+    {
+        get { return model; }
+    }
 
     public Cell(int row, int column)
     {
         this.row = row;
         this.column = column;
-    }
-
-    public virtual string GetChar()
-    {
-        return cellModel;
     }
 
     public virtual void Open(Cell[,] mineField)
@@ -24,8 +21,8 @@ class Cell
             return;
         }
 
-        mineField[this.row, this.column] = new Open(this.row, this.column, mineField);
-        if (mineField[this.row, this.column].surroundingMines == 0)
+        mineField[row, column] = new Open(row, column, mineField);
+        if (mineField[row, column].surroundingMines == 0)
         {
             OpenSurroundingCells(this, mineField);
         }
@@ -47,7 +44,7 @@ class Cell
                     continue;
                 }
 
-                if (mineField[cell.row + row, cell.column + column] is Open)
+                if (mineField[cell.row + row, cell.column + column] is Open) // Is Opened
                 {
                     continue;
                 }
