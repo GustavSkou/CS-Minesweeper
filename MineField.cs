@@ -1,34 +1,42 @@
 class MineField
 {
-    private int  heigth, width, totalMines = 0;
+    private int heigth, width, totalMines = 0;
 
-    private Cell[,] mineField;
+    private Cell[,] field;
+
+    private Random random = new();
+
+    public Cell[,] Field
+    {
+        get { return field; }
+    }
+
+    public int Height
+    {
+        get { return heigth; }
+    }
+
+    public int Width
+    {
+        get { return width; }
+    }
 
     public MineField(int heigth, int width)
     {
         this.heigth = heigth;
         this.width = width;
-        mineField = SetFieldToCells();
-    }
-
-    public int GetHeight()
-    {
-        return this.heigth;
-    }
-    public int GetWidth()
-    {
-        return this.width;
+        field = SetFieldToCells();
     }
 
     public Cell[,] SetFieldToCells()
     {
-        Cell[,] someField = new Cell[this.heigth, this.width];
+        Cell[,] someField = new Cell[heigth, width];
 
-        for (int row = 0; row < this.heigth; row++)
+        for (int row = 0; row < heigth; row++)
         {
-            for (int column = 0; column < this.width; column++)
+            for (int column = 0; column < width; column++)
             {
-                someField[row,column] = new Cell(row, column);
+                someField[row, column] = new Cell(row, column);
             }
         }
         return someField;
@@ -36,106 +44,76 @@ class MineField
 
     public void LayMines(int mines)
     {
-        this.totalMines = this.totalMines + mines;
-        Random random = new();
+        totalMines =+ mines;
 
-        for ( int minesPlaced = 0; minesPlaced < mines; minesPlaced++ )
+        for (int minesPlaced = 0; minesPlaced < mines; minesPlaced++)
         {
-            int[] minePlace = GetRandomPlace();
-
-            Cell mine = new Mine(minePlace[0], minePlace[1]);
-            this.mineField[ minePlace[0], minePlace[1] ] = mine;
-        }
-
-        int[] GetRandomPlace()
-        {
-            int[] place = 
-            [
-                random.Next(this.heigth),   // row
-                random.Next(this.width)     // column
-            ];
-            
-            if ( this.mineField[place[0],place[1]].GetType() == typeof(Cell) )
-            {
-                return place; 
-            }
-
-            return GetRandomPlace();
+            int[] coordiantes = GetRandomCoordiantes();
+            field[coordiantes[0], coordiantes[1]] = new Mine(coordiantes[0], coordiantes[1]);
         }
     }
 
-    public void PrintMineField()
-    {
-        Console.Clear();
-        PrintColumnNumbers();
-        
-        for(int row = 0; row < this.heigth; row++)
-        {
-            PrintRowNumbers(row);
-            
-            for (int column = 0; column < this.width; column++)
-            {
-                Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
-            }
-            
-            PrintRowNumbers(row);
-            Console.WriteLine();
-        }
-
-        PrintColumnNumbers();
-    }
     public void PrintMineField(int[] coordinates)
     {
+        coordinates ??= [0,0];
+
         Console.Clear();
-        PrintColumnNumbers();
-        
-        for(int row = 0; row < this.heigth; row++)
+
+        for (int row = 0; row < heigth; row++)
         {
-            PrintRowNumbers(row);
-            
-            for (int column = 0; column < this.width; column++)
+            for (int column = 0; column < width; column++)
             {
-              
-                Console.BackgroundColor = row == coordinates[0] || column == coordinates[1] ? ConsoleColor.DarkGray : ConsoleColor.Black;
-                
-                Console.Write( $"{this.mineField[ row, column ].GetChar()} " );
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = row == coordinates[0] && column == coordinates[1] ? 
+                    ConsoleColor.DarkGray : 
+                    ConsoleColor.Black;
+
+                Console.Write($"{field[row, column].Model} ");
             }
-            
-            PrintRowNumbers(row);
+
             Console.WriteLine();
         }
-
-        PrintColumnNumbers();
     }
 
-//helpers
+    // Helpers //
     private void PrintColumnNumbers()
+    {
+        for (int columnNum = 0; columnNum < this.heigth; columnNum++)
         {
-            for (int columnNum = 0; columnNum < this.heigth; columnNum++)
+            if (columnNum == 0)
             {
-                if (columnNum == 0) 
-                { 
-                    Console.Write("  "); 
-                }
-                Console.Write($"{columnNum} ");    
+                Console.Write("  ");
             }
-            Console.WriteLine();
+            Console.Write($"{columnNum} ");
         }
+        Console.WriteLine();
+    }
+
     private void PrintRowNumbers(int row)
     {
         Console.Write($"{row} ");
     }
-    public Cell[,] getMineField()
+
+    private int[] GetRandomCoordiantes()
     {
-        return this.mineField;
+        int[] coordiantes =
+        [
+            random.Next(heigth),        // row
+                random.Next(width)      // column
+        ];
+
+        if (field[coordiantes[0], coordiantes[1]].GetType() == typeof(Cell)) // Coordinates should only be return if it corresponds to a Cell
+        {
+            return coordiantes;
+        }
+
+        return GetRandomCoordiantes();
     }
 
-    public void OpenMineField()
+    public void OpenAllCells()
     {
-        foreach (Cell cell in mineField)
+        foreach (Cell cell in field)
         {
-            cell.Open(mineField);
+            cell.Open(field);
         }
     }
 }
