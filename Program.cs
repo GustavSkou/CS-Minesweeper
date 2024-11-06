@@ -6,16 +6,16 @@
         Player player = new Player(mineField);
 
         mineField.LayMines(5);
-        mineField.PrintMineField(null);
+        mineField.PrintMineField(new Input());
 
         while (true)
         {
-            int[] coordinets = player.GetInput();
+            Input input = player.GetInput();
 
-            mineField.Field[coordinets[0], coordinets[1]].
+            mineField.Field[input.Row, input.Column].
                 Open(mineField.Field);
                 
-            mineField.PrintMineField(coordinets);
+            mineField.PrintMineField(input);
         }
     }
 }

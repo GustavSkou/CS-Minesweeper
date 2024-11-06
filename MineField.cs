@@ -53,9 +53,13 @@ class MineField
         }
     }
 
-    public void PrintMineField(int[] coordinates)
+    public void PrintMineField(Input input)
     {
-        coordinates ??= [0,0];
+        if (input == null)
+        {
+            input.Row = 0;
+            input.Column = 0;
+        }
 
         Console.Clear();
 
@@ -63,7 +67,7 @@ class MineField
         {
             for (int column = 0; column < width; column++)
             {
-                Console.BackgroundColor = row == coordinates[0] && column == coordinates[1] ? 
+                Console.BackgroundColor = row == input.Row && column == input.Column ? 
                     ConsoleColor.DarkGray : 
                     ConsoleColor.Black;
 

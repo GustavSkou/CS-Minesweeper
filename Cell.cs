@@ -1,6 +1,6 @@
 class Cell
 {
-    protected int row, column, surroundingMines;
+    protected int row, column, surroundingMines, surroundingFlags;
     protected string model = "#";
 
     public string Model
@@ -16,35 +16,45 @@ class Cell
 
     public virtual void Open(Cell[,] mineField)
     {
-        if (this is Open)
+        mineField[row, column] = !(this is Open) ? 
+            new Open(row, column, mineField): 
+            this;
+
+        if (mineField[row, column].surroundingMines == 0)
         {
-            return;
+            OpenSurroundingCells(this, mineField);
         }
 
-        mineField[row, column] = new Open(row, column, mineField);
-        if (mineField[row, column].surroundingMines == 0)
+        if (mineField[row, column].surroundingMines == mineField[row, column].surroundingFlags)
         {
             OpenSurroundingCells(this, mineField);
         }
     }
 
-    public void OpenSurroundingCells(Cell cell, Cell[,] mineField)
+    public virtual void SetFlag(Cell[,] mineField)
+    {
+        mineField[row, column] = !(this is Open) ? 
+            new Flag(row, column): 
+            this;
+    }
+
+    protected void OpenSurroundingCells(Cell cell, Cell[,] mineField)
     {
         for (int row = -1; row <= 1; row++)
         {
-            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0)-1) // Out of range
+            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0)-1)                    // Out of range
             {
                 continue;
             }
 
             for (int column = -1; column <= 1; column++)
             {
-                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1)-1) // Out of range
+                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1)-1)    // Out of range
                 {
                     continue;
                 }
 
-                if (mineField[cell.row + row, cell.column + column] is Open) // Is Opened
+                if (mineField[cell.row + row, cell.column + column] is Open)                        // Is Opened
                 {
                     continue;
                 }
