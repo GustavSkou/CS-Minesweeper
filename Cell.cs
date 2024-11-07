@@ -31,13 +31,6 @@ class Cell
         }
     }
 
-    public virtual void SetFlag(Cell[,] mineField)
-    {
-        mineField[row, column] = !(this is Open) ? 
-            new Flag(row, column): 
-            this;
-    }
-
     protected void OpenSurroundingCells(Cell cell, Cell[,] mineField)
     {
         for (int row = -1; row <= 1; row++)

@@ -1,7 +1,14 @@
-class Flag : Cell
+class Flag
 {
-    public Flag(int row, int column) : base(row, column)
+    private bool state;
+    
+    public bool State
     {
-        
+        get {return state;}
+    }
+
+    public void ChangeState()
+    {
+        state = !state;
     }
 }
