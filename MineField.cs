@@ -25,21 +25,18 @@ class MineField
     {
         this.heigth = heigth;
         this.width = width;
-        field = SetFieldToCells();
+
+        field = new Cell[heigth, width];
+        SetFieldToCells();
     }
 
-    public Cell[,] SetFieldToCells()
+    public void SetFieldToCells()
     {
-        Cell[,] someField = new Cell[heigth, width];
-
-        for (int row = 0; row < heigth; row++)
-        {
-            for (int column = 0; column < width; column++)
+        ProcessField((row, column) =>
             {
-                someField[row, column] = new Cell(row, column);
+                field[row, column] = new Cell(row, column);
             }
-        }
-        return someField;
+        );
     }
 
     public void LayMines(int mines)
@@ -48,61 +45,43 @@ class MineField
 
         for (int minesPlaced = 0; minesPlaced < mines; minesPlaced++)
         {
-            int[] coordiantes = GetRandomCoordiantes();
+            int[] coordiantes = GetRandomCellCoordiantes();
             field[coordiantes[0], coordiantes[1]] = new Mine(coordiantes[0], coordiantes[1]);
         }
     }
 
     public void PrintMineField(Input input)
     {
+        Console.Clear();
+
         if (input == null)
         {
             input.Row = 0;
             input.Column = 0;
         }
 
-        Console.Clear();
-
-        for (int row = 0; row < heigth; row++)
-        {
-            for (int column = 0; column < width; column++)
+        ProcessField((row, column) =>
             {
                 Console.BackgroundColor = row == input.Row && column == input.Column ? 
                     ConsoleColor.DarkGray : 
                     ConsoleColor.Black;
 
                 Console.Write($"{field[row, column].Model} ");
+                
+                if (column == width - 1)
+                {
+                    Console.WriteLine();
+                }
             }
-
-            Console.WriteLine();
-        }
+        );
     }
 
-    // Helpers //
-    private void PrintColumnNumbers()
-    {
-        for (int columnNum = 0; columnNum < this.heigth; columnNum++)
-        {
-            if (columnNum == 0)
-            {
-                Console.Write("  ");
-            }
-            Console.Write($"{columnNum} ");
-        }
-        Console.WriteLine();
-    }
-
-    private void PrintRowNumbers(int row)
-    {
-        Console.Write($"{row} ");
-    }
-
-    private int[] GetRandomCoordiantes()
+    private int[] GetRandomCellCoordiantes()
     {
         int[] coordiantes =
         [
             random.Next(heigth),        // row
-                random.Next(width)      // column
+            random.Next(width)      // column
         ];
 
         if (field[coordiantes[0], coordiantes[1]].GetType() == typeof(Cell)) // Coordinates should only be return if it corresponds to a Cell
@@ -110,7 +89,18 @@ class MineField
             return coordiantes;
         }
 
-        return GetRandomCoordiantes();
+        return GetRandomCellCoordiantes();
+    }
+
+    private void ProcessField(Action<int ,int > action)
+    {
+        for (int row = 0; row < heigth; row++)
+        {
+            for (int column = 0; column < width; column++)
+            {
+                action(row, column);
+            }
+        }
     }
 
     public void OpenAllCells()

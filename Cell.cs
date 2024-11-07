@@ -40,54 +40,45 @@ class Cell
 
     protected void OpenSurroundingCells(Cell cell, Cell[,] mineField)
     {
-        for (int row = -1; row <= 1; row++)
-        {
-            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0)-1)                    // Out of range
+        ProcessSurroundingCells(cell, mineField, (surroundingCell) => 
             {
-                continue;
-            }
-
-            for (int column = -1; column <= 1; column++)
-            {
-                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1)-1)    // Out of range
+                if (!(surroundingCell is Open))
                 {
-                    continue;
+                    surroundingCell.Open(mineField);
                 }
-
-                if (mineField[cell.row + row, cell.column + column] is Open)                        // Is Opened
-                {
-                    continue;
-                }
-
-                mineField[cell.row+row, cell.column+column].Open(mineField);
             }
-        }
+        );
     }
 
     protected void ChangeSurroundingCellsSurroundingFlags(bool flagState, Cell[,] mineField)
     {
+        ProcessSurroundingCells(this, mineField, (surroundingCell) => 
+            {
+                surroundingCell.surroundingFlags = flagState ? 
+                    surroundingCell.surroundingFlags + 1:
+                    surroundingCell.surroundingFlags - 1;
+            }
+        );
+    }
+
+    protected void ProcessSurroundingCells(Cell cell, Cell[,] mineField, Action<Cell> action)
+    {
         for (int row = -1; row <= 1; row++)
         {
-            if (this.row + row < 0 || this.row + row > mineField.GetLength(0)-1)                    // Out of range
+            if (cell.row + row < 0 || cell.row + row > mineField.GetLength(0) - 1) // Out of range
             {
                 continue;
             }
 
             for (int column = -1; column <= 1; column++)
             {
-                if (this.column + column < 0 || this.column + column > mineField.GetLength(1)-1)    // Out of range
+                if (cell.column + column < 0 || cell.column + column > mineField.GetLength(1) - 1 ||    // Out of range
+                    (row == 0 && column == 0))                                                          // It self                                 
                 {
                     continue;
                 }
 
-                if (row == 0 && column == 0)                     // it self
-                {
-                    continue;
-                }
-
-                mineField[this.row + row, this.column + column].surroundingFlags = flagState ? 
-                    mineField[this.row + row, this.column + column].surroundingFlags + 1 : 
-                    mineField[this.row + row, this.column + column].surroundingFlags - 1;
+                action(mineField[cell.row + row, cell.column + column]);
             }
         }
     }
