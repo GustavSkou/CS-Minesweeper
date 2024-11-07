@@ -12,9 +12,18 @@
         {
             Input input = player.GetInput();
 
-            mineField.Field[input.Row, input.Column].
-                Open(mineField.Field);
-                
+            if (input.Key == ConsoleKey.Enter)
+            {
+                mineField.Field[input.Row, input.Column].
+                    Open(mineField.Field);
+            }
+            
+            if (input.Key == ConsoleKey.Spacebar)
+            {
+                mineField.Field[input.Row, input.Column].
+                    Flag(mineField.Field);
+            }
+ 
             mineField.PrintMineField(input);
         }
     }

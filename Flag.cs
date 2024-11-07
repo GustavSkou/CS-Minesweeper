@@ -1,6 +1,6 @@
 class Flag
 {
-    private bool state;
+    private bool state = false;
     
     public bool State
     {
